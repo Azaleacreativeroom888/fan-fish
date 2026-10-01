@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>さかなの勉強水族館</title>
+<meta name="description" content="魚について学んだことを、日記・コラム・漫画で記録するサイト。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --abyss:#04122e; --deep:#0a3a7a; --water:#1577c9; --glow:#2bb5e8;
+  --sand:#0b2350; --accent:#ffd23f; --text:#f2f8ff; --muted:#b9d6f2;
+  --font:"Zen Maru Gothic","Hiragino Maru Gothic ProN","Hiragino Sans","Yu Gothic",sans-serif;
+}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);background:var(--sand);color:var(--text);line-height:1.8}
+
+/* 水槽 */
+.tank{
+  position:relative;overflow:hidden;min-height:min(82svh,760px);
+  background:
+    radial-gradient(ellipse 70% 45% at 50% -5%,rgba(255,210,63,.28),transparent 70%),
+    radial-gradient(ellipse 60% 50% at 20% 0%,rgba(43,181,232,.5),transparent 75%),
+    linear-gradient(180deg,var(--water) 0%,var(--deep) 55%,var(--abyss) 100%);
+  display:flex;align-items:center;
+}
+.rays{
+  position:absolute;inset:0;pointer-events:none;opacity:.22;
+  background:repeating-linear-gradient(105deg,transparent 0 70px,rgba(255,255,255,.55) 70px 110px,transparent 110px 210px);
+  -webkit-mask-image:linear-gradient(180deg,#000,transparent 75%);mask-image:linear-gradient(180deg,#000,transparent 75%);
+  animation:sway 14s ease-in-out infinite alternate;
+}
+@keyframes sway{from{transform:translateX(-30px)}to{transform:translateX(30px)}}
+
+.title{position:relative;z-index:3;padding:clamp(24px,6vw,96px);padding-bottom:clamp(90px,14vw,160px);max-width:860px}
+h1{font-size:clamp(2.4rem,7.5vw,5.4rem);font-weight:900;line-height:1.15;letter-spacing:.04em;text-shadow:0 4px 30px rgba(4,18,46,.6)}
+.lead{margin-top:1.2rem;font-size:clamp(1rem,2.2vw,1.2rem);color:var(--muted);max-width:30em;text-shadow:0 2px 12px rgba(4,18,46,.8)}
+
+/* 泳ぐ魚 */
+.sw{position:absolute;top:var(--y);width:var(--w);z-index:2;pointer-events:none}
+.sw.l{left:105%;animation:swimL var(--d) linear var(--s) infinite}
+.sw.r{left:calc(-1 * var(--w));animation:swimR var(--d) linear var(--s) infinite}
+.sw.r .fl{transform:scaleX(-1)}
+@keyframes swimL{to{transform:translateX(calc(-105vw - var(--w)))}}
+@keyframes swimR{to{transform:translateX(calc(105vw + var(--w)))}}
+.fish{display:block;width:100%;height:auto;fill:currentColor;animation:bob 3.4s ease-in-out infinite alternate}
+@keyframes bob{from{transform:translateY(-7px) rotate(-2deg)}to{transform:translateY(7px) rotate(2deg)}}
+
+/* 泡 */
+.bub{position:absolute;bottom:-20px;border-radius:50%;border:1.5px solid rgba(255,255,255,.55);background:rgba(255,255,255,.08);animation:rise var(--d) ease-in infinite;animation-delay:var(--s);z-index:1}
+@keyframes rise{to{transform:translateY(-95svh) translateX(18px);opacity:0}}
+
+/* 海底 */
+.floor{position:absolute;left:0;right:0;bottom:-1px;width:100%;height:clamp(70px,12vw,150px);z-index:2;display:block}
+.kelp{fill:none;stroke:#1fa58a;stroke-width:9;stroke-linecap:round;opacity:.85;transform-box:fill-box;transform-origin:50% 100%;animation:kelp 5s ease-in-out infinite alternate}
+.kelp:nth-of-type(2n){animation-duration:6.5s;stroke:#3dd6c6}
+@keyframes kelp{from{transform:rotate(-5deg)}to{transform:rotate(5deg)}}
+
+/* 館内案内 */
+.guide{padding:clamp(32px,6vw,72px) clamp(20px,5vw,64px) 56px;max-width:1100px;margin:0 auto}
+.guide h2{font-size:1.4rem;font-weight:900;margin-bottom:1.4rem}
+.plaques{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
+.plaque{
+  display:block;padding:22px 22px 20px;color:inherit;text-decoration:none;
+  background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);border-top:4px solid var(--accent);
+  border-radius:6px 6px 14px 14px;transition:transform .2s,background .2s;
+}
+.plaque:hover{transform:translateY(-4px);background:rgba(255,255,255,.12)}
+.plaque:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.plaque strong{display:block;font-size:1.3rem;font-weight:900;margin-bottom:.3rem}
+.plaque span{color:var(--muted);font-size:.95rem}
+footer{padding:28px 20px 40px;text-align:center;color:var(--muted);font-size:.85rem;border-top:1px solid rgba(255,255,255,.1)}
+
+@media (prefers-reduced-motion:reduce){
+  .rays,.kelp,.fish,.bub{animation:none}
+  .sw{animation:none!important;left:var(--rx)!important}
+  .bub{display:none}
+}
+</style>
+</head>
+<body>
+
+<header class="tank" id="tank">
+  <div class="rays" aria-hidden="true"></div>
+  <div class="title">
+    <h1>さかなの<br>勉強水族館</h1>
+    <p class="lead">魚について学んだことを、日記とコラムと漫画で泳がせておく場所です。</p>
+  </div>
+
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="fish" viewBox="0 0 120 60">
+      <path d="M8 30C28 4 70 2 92 30 70 58 28 56 8 30Z"/>
+      <path d="M88 30 118 8V52Z"/>
+      <circle cx="27" cy="26" r="3.6" fill="#04122e"/>
+    </symbol>
+  </svg>
+  <div id="fishes" aria-hidden="true"></div>
+  <div id="bubbles" aria-hidden="true"></div>
+
+  <svg class="floor" viewBox="0 0 1440 150" preserveAspectRatio="none" aria-hidden="true">
+    <path class="kelp" d="M120 150C90 110 150 80 120 30"/>
+    <path class="kelp" d="M160 150C135 120 185 95 165 55"/>
+    <path class="kelp" d="M980 150C950 105 1010 75 985 20"/>
+    <path class="kelp" d="M1030 150C1005 118 1055 100 1040 60"/>
+    <path class="kelp" d="M1300 150C1275 115 1325 90 1305 45"/>
+    <path d="M0 150V105C120 90 240 120 380 108S640 88 780 106 1040 122 1180 104 1360 96 1440 108V150Z" fill="#0b2350"/>
+  </svg>
+</header>
+
+<main class="guide">
+  <h2>館内案内</h2>
+  <nav class="plaques" aria-label="サイト内ページ">
+    <a class="plaque" href="blog.html"><strong>ブログ</strong><span>勉強の進捗を、日付と日記だけでつぶやく記録。</span></a>
+    <a class="plaque" href="column.html"><strong>コラム</strong><span>魚の漫画・イラスト・4コマと、軽い小論文。</span></a>
+    <a class="plaque" href="about.html"><strong>このサイトについて</strong><span>作った人と、ここで何をしたいか。</span></a>
+  </nav>
+</main>
+
+<footer>© さかなの勉強水族館</footer>
+
+<script>
+// [向き, 縦位置%, 幅px, 周期s, 開始ずらしs, 色]
+const fishes=[
+  ['l',20,150,46,-8,'#ffd23f'],['r',36,110,38,-20,'#ff7a59'],
+  ['l',54,190,64,-30,'#3dd6c6'],['r',66,90,34,-4,'#ff9fd0'],['l',10,70,30,-15,'#ffd23f']
+];
+for(let i=0;i<6;i++) fishes.push(['l',44+(i%3)*4+i*.8,34,26,-3-i*.7,'#9fe8ff']);
+const box=document.getElementById('fishes');
+fishes.forEach((f,i)=>{
+  const d=document.createElement('div');
+  d.className='sw '+f[0];
+  d.style.cssText=`--y:${f[1]}%;--w:${f[2]}px;--d:${f[3]}s;--s:${f[4]}s;--rx:${(i*13+8)%78}%;color:${f[5]}`;
+  d.innerHTML='<div class="fl"><svg class="fish" viewBox="0 0 120 60"><use href="#fish"/></svg></div>';
+  box.appendChild(d);
+});
+const bb=document.getElementById('bubbles');
+for(let i=0;i<14;i++){
+  const b=document.createElement('span'),s=6+Math.random()*16;
+  b.className='bub';
+  b.style.cssText=`left:${Math.random()*100}%;width:${s}px;height:${s}px;--d:${9+Math.random()*9}s;--s:${-Math.random()*14}s`;
+  bb.appendChild(b);
+}
+</script>
+</body>
+</html>
