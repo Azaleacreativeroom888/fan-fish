@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ブログ｜さかなの勉強水族館</title>
+<meta name="description" content="魚の勉強の進捗を、日付と日記で記録するページ。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --abyss:#04122e; --deep:#0a3a7a; --water:#1577c9; --glow:#2bb5e8;
+  --sand:#0b2350; --accent:#ffd23f; --text:#f2f8ff; --muted:#b9d6f2;
+  --font:"Zen Maru Gothic","Hiragino Maru Gothic ProN","Hiragino Sans","Yu Gothic",sans-serif;
+}
+*{box-sizing:border-box;margin:0}
+body{font-family:var(--font);background:var(--sand);color:var(--text);line-height:1.8}
+
+/* 水槽（ヘッダー） */
+.tank{
+  position:relative;overflow:hidden;min-height:230px;display:flex;align-items:flex-end;
+  background:
+    radial-gradient(ellipse 60% 70% at 25% 0%,rgba(43,181,232,.5),transparent 75%),
+    linear-gradient(180deg,var(--water) 0%,var(--deep) 60%,var(--abyss) 100%);
+}
+.back{position:absolute;top:16px;left:clamp(16px,4vw,48px);z-index:4;color:var(--text);text-decoration:none;font-size:.95rem;padding:4px 12px;border:1px solid rgba(255,255,255,.35);border-radius:999px;background:rgba(4,18,46,.3)}
+.back:hover{background:rgba(4,18,46,.55)}
+.back:focus-visible,.nav a:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+h1{position:relative;z-index:3;font-size:clamp(2rem,6vw,3.4rem);font-weight:900;letter-spacing:.06em;padding:0 clamp(16px,4vw,48px) 34px;text-shadow:0 4px 24px rgba(4,18,46,.6)}
+.sw{position:absolute;top:var(--y);width:var(--w);z-index:2;pointer-events:none}
+.sw.l{left:105%;animation:swimL var(--d) linear var(--s) infinite}
+.sw.r{left:calc(-1 * var(--w));animation:swimR var(--d) linear var(--s) infinite}
+.sw.r .fl{transform:scaleX(-1)}
+@keyframes swimL{to{transform:translateX(calc(-105vw - var(--w)))}}
+@keyframes swimR{to{transform:translateX(calc(105vw + var(--w)))}}
+.fish{display:block;width:100%;height:auto;fill:currentColor;animation:bob 3.4s ease-in-out infinite alternate}
+@keyframes bob{from{transform:translateY(-6px) rotate(-2deg)}to{transform:translateY(6px) rotate(2deg)}}
+.bub{position:absolute;bottom:-20px;border-radius:50%;border:1.5px solid rgba(255,255,255,.55);background:rgba(255,255,255,.08);animation:rise var(--d) ease-in infinite;animation-delay:var(--s);z-index:1}
+@keyframes rise{to{transform:translateY(-260px) translateX(14px);opacity:0}}
+
+/* タイムライン */
+.feed{max-width:640px;margin:0 auto;padding:12px 16px 56px}
+.post{padding:20px 6px 22px;border-bottom:1px solid rgba(255,255,255,.14)}
+.post time{display:block;font-size:.85rem;color:var(--accent);font-weight:900;letter-spacing:.06em;margin-bottom:.3rem}
+.post p{font-size:1.02rem;max-width:34em}
+
+.nav{display:flex;flex-wrap:wrap;gap:10px 22px;justify-content:center;padding:24px 16px 8px}
+.nav a{color:var(--muted);text-decoration:none;font-weight:900}
+.nav a:hover{color:var(--text)}
+footer{padding:16px 20px 40px;text-align:center;color:var(--muted);font-size:.85rem}
+
+@media (prefers-reduced-motion:reduce){
+  .fish,.bub{animation:none}
+  .sw{animation:none!important;left:var(--rx)!important}
+  .bub{display:none}
+}
+</style>
+</head>
+<body>
+
+<header class="tank">
+  <a class="back" href="index.html">水族館にもどる</a>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="fish" viewBox="0 0 120 60">
+      <path d="M8 30C28 4 70 2 92 30 70 58 28 56 8 30Z"/>
+      <path d="M88 30 118 8V52Z"/>
+      <circle cx="27" cy="26" r="3.6" fill="#04122e"/>
+    </symbol>
+  </svg>
+  <div id="fishes" aria-hidden="true"></div>
+  <div id="bubbles" aria-hidden="true"></div>
+  <h1>ブログ</h1>
+</header>
+
+<main class="feed">
+  <!--
+    記事を追加するときは、下のかたまりをコピーして一番上に貼る（新しい順）。
+    <article class="post"><time datetime="2026-10-01">2026.10.01</time><p>日記の内容</p></article>
+  -->
+  <article class="post"><time datetime="2026-09-30">2026.09.30</time><p>魚の勉強サイトを作りはじめた。まずはトップページから。水族館にいる感じにしたい。</p></article>
+  <article class="post"><time datetime="2026-09-29">2026.09.29</time><p>魚の体の形を調べた。流線形のマグロと、平べったいヒラメでは、泳ぎ方も暮らし方もぜんぜん違う。</p></article>
+  <article class="post"><time datetime="2026-09-27">2026.09.27</time><p>ウナギの一生を調べた。海で生まれて、川で大きくなって、また海に帰る。スケールが大きい。</p></article>
+  <article class="post"><time datetime="2026-09-25">2026.09.25</time><p>側線という器官を知った。魚は水の流れを体で感じとっているらしい。</p></article>
+  <article class="post"><time datetime="2026-09-23">2026.09.23</time><p>今日は勉強おやすみ。水族館の動画を見てのんびりした。</p></article>
+</main>
+
+<nav class="nav" aria-label="サイト内ページ">
+  <a href="index.html">トップ</a>
+  <a href="column.html">コラム</a>
+  <a href="about.html">このサイトについて</a>
+</nav>
+<footer>© さかなの勉強水族館</footer>
+
+<script>
+const fishes=[
+  ['l',30,90,34,-8,'#ffd23f'],['r',52,70,30,-18,'#ff7a59'],['l',12,120,48,-26,'#3dd6c6']
+];
+for(let i=0;i<4;i++) fishes.push(['r',62+(i%2)*6+i*.8,26,22,-2-i*.7,'#9fe8ff']);
+const box=document.getElementById('fishes');
+fishes.forEach((f,i)=>{
+  const d=document.createElement('div');
+  d.className='sw '+f[0];
+  d.style.cssText=`--y:${f[1]}%;--w:${f[2]}px;--d:${f[3]}s;--s:${f[4]}s;--rx:${(i*17+10)%78}%;color:${f[5]}`;
+  d.innerHTML='<div class="fl"><svg class="fish" viewBox="0 0 120 60"><use href="#fish"/></svg></div>';
+  box.appendChild(d);
+});
+const bb=document.getElementById('bubbles');
+for(let i=0;i<8;i++){
+  const b=document.createElement('span'),s=6+Math.random()*12;
+  b.className='bub';
+  b.style.cssText=`left:${Math.random()*100}%;width:${s}px;height:${s}px;--d:${7+Math.random()*7}s;--s:${-Math.random()*10}s`;
+  bb.appendChild(b);
+}
+</script>
+</body>
+</html>
